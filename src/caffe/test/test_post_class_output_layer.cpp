@@ -12,6 +12,8 @@
 #include "caffe/filler.hpp"
 #include "caffe/layers/post_class_output_layer.hpp"
 
+#include "caffe/layers/detection_output_layer.hpp"
+
 #include "caffe/test/test_caffe_main.hpp"
 
 namespace caffe {
@@ -172,8 +174,8 @@ TYPED_TEST(PostClassOutputLayerTest, TestSetup) {
   DetectionOutputParameter* detection_output_param =
       layer_param.mutable_detection_output_param();
   detection_output_param->set_num_classes(this->num_classes_);
-  // DetectionOutputLayer<Dtype> layer(layer_param);
-  PostClassOutputLayer<Dtype> layer(layer_param);
+  DetectionOutputLayer<Dtype> layer(layer_param);
+  // PostClassOutputLayer<Dtype> layer(layer_param);
   layer.SetUp(this->blob_bottom_vec_, this->blob_top_vec_);
   EXPECT_EQ(this->blob_top_->num(), 1);
   EXPECT_EQ(this->blob_top_->channels(), 1);
@@ -191,8 +193,8 @@ TYPED_TEST(PostClassOutputLayerTest, TestForwardShareLocation) {
   detection_output_param->set_background_label_id(0);
   detection_output_param->mutable_nms_param()->set_nms_threshold(
       this->nms_threshold_);
-  // DetectionOutputLayer<Dtype> layer(layer_param);
-  PostClassOutputLayer<Dtype> layer(layer_param);
+  DetectionOutputLayer<Dtype> layer(layer_param);
+  // PostClassOutputLayer<Dtype> layer(layer_param);
 
   this->FillLocData(true);
   layer.SetUp(this->blob_bottom_vec_, this->blob_top_vec_);
@@ -222,8 +224,8 @@ TYPED_TEST(PostClassOutputLayerTest, TestForwardShareLocationTopK) {
   detection_output_param->mutable_nms_param()->set_nms_threshold(
       this->nms_threshold_);
   detection_output_param->mutable_nms_param()->set_top_k(this->top_k_);
-  // DetectionOutputLayer<Dtype> layer(layer_param);
-  PostClassOutputLayer<Dtype> layer(layer_param);
+  DetectionOutputLayer<Dtype> layer(layer_param);
+  // PostClassOutputLayer<Dtype> layer(layer_param);
 
   this->FillLocData(true);
   layer.SetUp(this->blob_bottom_vec_, this->blob_top_vec_);
