@@ -44,7 +44,7 @@ void PostClassOutputLayer<Dtype>::Reshape(const vector<Blob<Dtype>*>& bottom,
   int batch_size =bottom[1]->shape(0);
   num_priors_ = bottom[0]->shape(2) / batch_size;
   CHECK_EQ(num_priors_ * num_classes_, bottom[1]->channels())
-      << "Number of priors must match number of confidence predictions. Priors: " << num_priors_ << ", classes: " << num_classes_ << ", channels: " << bottom[1]->channels();
+      << "Number of priors must match number of confidence predictions. bottom[0]->shape(2): " << bottom[0]->shape(2) << ", batch_size: " << batch_size;
   // num() and channels() are 1.
   vector<int> top_shape(2, 1);
   // Since the number of bboxes to be kept is unknown before nms, we manually
